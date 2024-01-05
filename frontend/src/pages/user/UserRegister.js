@@ -49,7 +49,7 @@ function UserRegister() {
        }
 
   return (
-    <section  style={{backgroundColor: "#508bfc"}}>
+    <section>
     <div className="container py-5 ">
       <div className="row d-flex justify-content-center align-items-center ">
         <div className="col-12 col-md-8 col-lg-6 col-xl-5">

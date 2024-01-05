@@ -43,3 +43,9 @@ class UserRegisterSerializer(serializers.ModelSerializer):
                 return instance
             else:
                 raise serializers.ValidationError({"password": "password is not valid"})
+
+
+class UserDetailsUpdateSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = UserProfile
+        fields = ['profile_pic']

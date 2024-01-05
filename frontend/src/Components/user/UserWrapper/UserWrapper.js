@@ -18,6 +18,7 @@ import UserHome from "../../../pages/user/UserHome";
 import UserHeader from "../UserHeader/UserHeader";
 import PrivateRoutes from "../../PrivateRoutes";
 import UserRegister from "../../../pages/user/UserRegister";
+import UserProfile from "../../../pages/user/UserProfile";
 
 function UserWrapper() {
     const dispatch = useDispatch();
@@ -76,11 +77,11 @@ function UserWrapper() {
     <Route path="/" element={<UserHome/>} />
     <Route path="login" element={<UserLogin/>}/>
     <Route path="register" element={<UserRegister/>}/>
-    {/* <Route path="profile" element={
-      <PrivateRoute>
-        <UserProfile/>
-      </PrivateRoute>
-    }/> */}
+    <Route path="profile" element={
+      <PrivateRoutes>
+          <UserProfile/>
+      </PrivateRoutes>
+    }/>
   </Routes>
 </>
 

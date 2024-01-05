@@ -8,13 +8,16 @@ const PrivateRoutes = ({children}) => {
     const [isLoading, setLoading] = useState(true);
     
     // jwt authorization checking , whether the user have access or user is loged in or not 
-    useEffect(()=>{
-        const fetchData = async ()=>{
-            const authInfo = await isAuthUser();
-            setLoading(false);
+    useEffect(() => {
+        const fetchData = async () => {
+          const authInfo = await isAuthUser();
+          setIsAuthenticated(authInfo.isAuthenticated);
+          setLoading(false);
         };
         fetchData();
-    },[]);
+      }, []);
+      
+  
 
     if (isLoading){
         // handle login state , you might show a loading spinner 
