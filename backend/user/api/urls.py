@@ -12,6 +12,8 @@ urlpatterns = [
 
     # authentication 
     path("login/", views.LoginView.as_view(), name="user-login"),
+    path('details/', views.UserDetails.as_view(), name="user-details"),
+     path("register/", views.RegisterView.as_view(), name="user-register"),
 
     # FOR JWT AUTHENTICATION 
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

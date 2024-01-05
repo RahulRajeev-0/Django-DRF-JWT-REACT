@@ -1,23 +1,23 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager ,PermissionsMixin
 
 # Create your models here.
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, first_name, email, phone_number, password=None):
+    def create_user(self,first_name,email, phone_number,password=None):
         if not email:
-            raise TypeError ("User Must Have An Email Adress") 
+            raise ValueError('User Must Have An Email Adress')
         if not phone_number:
-            raise TypeError("Users Must Add There Phone Number")
-        
+            raise ValueError('User Must Have An Phone Number')
+            
         user = self.model(
             email = self.normalize_email(email),
             first_name = first_name,
-            phone_number = phone_number,
+            phone_number = phone_number
         )
         user.set_password(password)
-        user.save()
-
+        user.save(using=self._db)
+        
         return user
     
     def create_superuser(self, first_name, email, phone_number, password):

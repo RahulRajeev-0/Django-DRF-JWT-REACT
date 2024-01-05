@@ -7,6 +7,9 @@ from user.models import User
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken 
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from .serializers import UserSerializer,UserRegisterSerializer
+
 # ---------------------------- views --------------------------------------
 class getAccountsRoutes(APIView):
     def get(self, request, format=None):
@@ -45,3 +48,38 @@ class LoginView(APIView):
                 }
         
         return Response(content,status=status.HTTP_200_OK)
+
+
+
+# for getting user detail  
+class UserDetails(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        user = User.objects.get(id=request.user.id)
+       
+        data = UserSerializer(user).data
+        try :
+            profile_pic = user.User_Profile.profile_pic
+            data['profile_pic'] = request.build_absolute_uri('/')[:-1]+profile_pic.url
+        except:
+            profile_pic = ''
+            data['profile_pic']=''
+            
+        content = data
+        return Response(content)
+    
+
+class RegisterView(APIView):
+    def post(self,request):
+        serializer = UserRegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            print(serializer.validated_data)
+            print("working")
+            serializer.save()
+        else:
+            return Response(serializer.errors,status=status.HTTP_406_NOT_ACCEPTABLE,)  
+        # serializer.is_valid(raise_exception=True)
+        # serializer.save()
+        
+        content ={'Message':'User Registered Successfully'}
+        return Response(content,status=status.HTTP_201_CREATED,)

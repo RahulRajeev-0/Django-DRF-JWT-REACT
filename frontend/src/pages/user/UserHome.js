@@ -1,33 +1,15 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link ,useNavigate} from 'react-router-dom'
-import { set_Authentication } from '../../Redux/authentication/authenticationSlice';
-// import UserHeader from '../../Components/user/UserHeader/UserHeader';
+import UserHeader from '../../Components/user/UserHeader/UserHeader';
 
 const UserHome = () => {
-    const navigate = useNavigate()
-    const dispatch = useDispatch();
+    
     const authentication_user = useSelector(state=>state.authentication_user)
 
-    const handleLogout = () => {
-        // Clear local storage
-        localStorage.removeItem('access');
-        localStorage.removeItem('refresh');
-      
-        // Dispatch a Redux action to reset authentication state
-        dispatch(
-          set_Authentication({
-            name: '',
-            isAuthenticated: false,
-            isAdmin: false
-          })
-        );
-      
-        // Navigate to the login or home page, depending on your app structure
-        navigate('/login'); // Adjust the route as needed
-      };
-  return (
     
+  return (
+    <>
+    <UserHeader/>
     <div className="container mt-5">
     <div className="row">
        
@@ -45,10 +27,11 @@ const UserHome = () => {
         <p>
           Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
-        <button onClick={handleLogout}>Log Out</button>
+        
       </div>
     </div>
   </div>
+</>
   )
 }
 

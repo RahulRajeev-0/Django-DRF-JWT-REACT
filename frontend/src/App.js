@@ -5,6 +5,7 @@ import './App.css';
 import userStore from './Redux/userStore';
 import UserLogin from './pages/user/UserLogin';
 import UserHome from './pages/user/UserHome';
+import UserWrapper from './Components/user/UserWrapper/UserWrapper';
 
 
 function App() {
@@ -13,8 +14,11 @@ function App() {
       <Router>
         <Provider store={userStore}>
           <Routes>
-            <Route path="/login" element={<UserLogin/>} />
-            <Route path="/" element={<UserHome/>} />
+            <Route path='/*' element={<UserWrapper/>} >
+              
+            </Route>
+            {/* <Route path="/login" element={<UserLogin/>} />
+            <Route path="/" element={<UserHome/>} /> */}
           </Routes>
         </Provider>
       </Router>

@@ -1,6 +1,32 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Link ,useNavigate} from 'react-router-dom'
+import { set_Authentication } from '../../../Redux/authentication/authenticationSlice'
+// import UserHeader from '../../Components/user/UserHeader/UserHeader';
+
 
 const UserHeader = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const authentication_user = useSelector(state=>state.authentication_user)
+
+  const handleLogout = () => {
+      // Clear local storage
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
+    
+      // Dispatch a Redux action to reset authentication state
+      dispatch(
+        set_Authentication({
+          name: '',
+          isAuthenticated: false,
+          isAdmin: false
+        })
+      );
+    
+      // Navigate to the login or home page, depending on your app structure
+      navigate('/login'); // Adjust the route as needed
+    };
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -12,13 +38,13 @@ const UserHeader = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">Home</a>
+                <a className="nav-link active" aria-current="page" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Features</a>
+                <a className="nav-link" href="#">Profile</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Pricing</a>
+                <a className="nav-link" href="#" onClick={handleLogout}>Log Out</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">Disabled</a>
