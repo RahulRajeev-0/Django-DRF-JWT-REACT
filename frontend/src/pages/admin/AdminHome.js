@@ -2,6 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import userimg from "../../images/user.png";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import {useNavigate} from 'react-router-dom'
+import { set_Authentication } from '../../Redux/authentication/authenticationSlice'
+
 
 function AdminHome() {
   const baseURL = "http://127.0.0.1:8000";
@@ -11,6 +15,9 @@ function AdminHome() {
   const [nextPage, setNextPage] = useState(null);
   const [prevPage, setPrevPage] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   // function for fetching the users 
   const fetchUsers = (url) => {
@@ -25,6 +32,24 @@ function AdminHome() {
       .catch((error) => {
         console.error("Error fetching users:", error);
       });
+  };
+
+  const handleLogout = () => {
+    // Clear local storage
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+  
+    // Dispatch a Redux action to reset authentication state
+    dispatch(
+      set_Authentication({
+        name: '',
+        isAuthenticated: false,
+        isAdmin: false
+      })
+    );
+  
+    // Navigate to the login or home page, depending on your app structure
+    navigate('/login'); // Adjust the route as needed
   };
 
   // function for deleting user 
@@ -62,7 +87,7 @@ function AdminHome() {
     <>
   <div className="container my-5">
     <h2 className="text-center mb-4">User Details</h2>
-
+      <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
     <div className="d-flex justify-content-between align-items-center mb-3">
       <input
         type="text"

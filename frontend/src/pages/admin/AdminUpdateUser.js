@@ -17,7 +17,7 @@ const [userData, setUserData] = useState({
 
 useEffect(() => {
     // Fetch user details by ID when component mounts
-    axios.get(baseURL+`/api/accounts/admin/users/${id}/`)
+    axios.get(baseURL+`/api/user/admin/users/${id}/`)
       .then(response => {
         setUserData(response.data); 
         console.log(response.data);
@@ -46,10 +46,10 @@ useEffect(() => {
   };
 
   const handleDelete = () => {
-      axios.delete(baseURL+`/api/accounts/admin/users/delete/${id}/`)
+      axios.delete(baseURL+`/api/user/admin/users/delete/${id}/`)
         .then(response => {
           
-          navigate('/admincontrol')
+          navigate('/admin')
           // Optionally, perform any necessary state updates or redirects
         })
         .catch(error => {
@@ -61,9 +61,9 @@ useEffect(() => {
   const handleSubmit = event => {
     event.preventDefault();
     // Send updated user data to backend
-    axios.put(baseURL+`/api/accounts/admin/users/update/${id}/`, userData)
+    axios.put(baseURL+`/api/user/admin/users/update/${id}/`, userData)
       .then(response => {
-        navigate('/admincontrol')
+        navigate('/admin')
         // Redirect to user list or other appropriate page
       })
       .catch(error => {
@@ -74,10 +74,11 @@ useEffect(() => {
   };
 
   return (
-    <section  style={{backgroundColor: "#508bfc"}}>
+    <section>
     <div className="container py-5 ">
       <div className="row d-flex justify-content-center align-items-center ">
         <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+            
           <div className="card shadow-2-strong" style={{borderRadius: '1rem'}}>
             <div className="card-body p-5">
             <img src={

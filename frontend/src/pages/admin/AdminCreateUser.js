@@ -42,14 +42,14 @@ const handleSubmit = event => {
       userDataWithProfilePic.append(key, userData[key]);
     });
 
-    axios.post(baseURL+'/api/accounts/admin/users/', userDataWithProfilePic,{
+    axios.post(baseURL+'/api/user/admin/users/', userDataWithProfilePic,{
         headers: {
             'Content-Type': 'multipart/form-data', 
         }
     })
         .then(response => {
            
-            navigate('/admincontrol')
+            navigate('/admin')
            
         })
         .catch(error => {
@@ -71,7 +71,7 @@ const handleSubmit = event => {
 
 
   return (
-     <section  style={{backgroundColor: "#508bfc"}}>
+     <section>
     <div className="container py-5 ">
       <div className="row d-flex justify-content-center align-items-center ">
         <div className="col-12 col-md-8 col-lg-6 col-xl-5">
