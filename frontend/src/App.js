@@ -6,6 +6,7 @@ import userStore from './Redux/userStore';
 import UserLogin from './pages/user/UserLogin';
 import UserHome from './pages/user/UserHome';
 import UserWrapper from './Components/user/UserWrapper/UserWrapper';
+import AdminWrapper from './Components/admin/adminWrapper/AdminWrapper'
 
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
             </Route>
             {/* <Route path="/login" element={<UserLogin/>} />
             <Route path="/" element={<UserHome/>} /> */}
+            <Route path="admin/*" element={<AdminWrapper />}></Route>
+
           </Routes>
         </Provider>
       </Router>
